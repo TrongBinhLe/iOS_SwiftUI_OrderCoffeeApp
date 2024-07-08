@@ -2,17 +2,17 @@
 //  AddCoffeeOrderViewModel.swift
 //  CoffeeOrderingApp
 //
-//  Created by Mohammad Azam on 8/23/19.
-//  Copyright © 2019 Mohammad Azam. All rights reserved.
+//  Created by admin on 24/01/2024.
+//  Copyright © 2024 Mohammad Azam. All rights reserved.
 //
 
 import Foundation
 
+
 class AddCoffeeOrderViewModel: ObservableObject {
-    
-    var name: String = ""
-    @Published var size: String = "Medium"
-    @Published var coffeeName: String = ""
+    var name : String = ""
+    @Published  var size: String = "Medium"
+    @Published var coffeeName = ""
     
     private var webservice: Webservice
     
@@ -29,27 +29,24 @@ class AddCoffeeOrderViewModel: ObservableObject {
     }
     
     func placeOrder() {
-        
         let order = Order(name: self.name, size: self.size, coffeeName: self.coffeeName, total: self.total)
         
         self.webservice.createCoffeeOrder(order: order) { _ in
             
         }
-       
     }
     
     private func priceForSize() -> Double {
-        let prices = ["Small":2.0, "Medium":3.0, "Large":4.0]
+        let prices = ["Small": 2.0, "Medium":3.0, "Large":4.0]
         return prices[self.size]!
     }
     
     private func calculateTotalPrice() -> Double {
-        let coffeeVM = coffeeList.first { $0.name == coffeeName }
+        let coffeeVM = coffeeList.first { $0.name == coffeeName}
         if let coffeeVM = coffeeVM {
             return coffeeVM.price * priceForSize()
         } else {
             return 0.0
         }
     }
-    
 }

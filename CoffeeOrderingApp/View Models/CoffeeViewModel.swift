@@ -2,8 +2,8 @@
 //  CoffeeViewModel.swift
 //  CoffeeOrderingApp
 //
-//  Created by Mohammad Azam on 8/23/19.
-//  Copyright © 2019 Mohammad Azam. All rights reserved.
+//  Created by admin on 08/07/2024.
+//  Copyright © 2024 Mohammad Azam. All rights reserved.
 //
 
 import Foundation
@@ -13,7 +13,6 @@ class CoffeeListViewModel {
 }
 
 struct CoffeeViewModel {
-    
     var coffee: Coffee
     
     init(coffee: Coffee) {
@@ -31,6 +30,4 @@ struct CoffeeViewModel {
     var price: Double {
         return self.coffee.price
     }
-    
-    
 }

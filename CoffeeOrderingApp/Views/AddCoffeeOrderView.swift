@@ -2,76 +2,60 @@
 //  AddCoffeeOrderView.swift
 //  CoffeeOrderingApp
 //
-//  Created by Mohammad Azam on 8/23/19.
-//  Copyright © 2019 Mohammad Azam. All rights reserved.
+//  Created by admin on 08/07/2024.
+//  Copyright © 2024 Mohammad Azam. All rights reserved.
 //
 
 import SwiftUI
 
 struct AddCoffeeOrderView: View {
-    
-    @Binding var isPresented: Bool
     @ObservedObject private var addCoffeeOrderVM = AddCoffeeOrderViewModel()
     
     var body: some View {
-        
         NavigationView {
-        
-            
             VStack {
-                
                 Form {
-                    
-                    Section(header: Text("INFORMATION").font(.body)) {
+                    Section(header: Text("INFOMATION").font(.body)) {
                         TextField("Enter name", text: self.$addCoffeeOrderVM.name)
                     }
                     
                     Section(header: Text("SELECT COFFEE").font(.body)) {
-                        
-                        ForEach(addCoffeeOrderVM.coffeeList, id:\.name) { coffee in
-                            
+                        ForEach(addCoffeeOrderVM.coffeeList, id: \.name) {
+                            coffee in
                             CoffeeCellView(coffee: coffee, selection: self.$addCoffeeOrderVM.coffeeName)
+                          
                         }
-                        
                     }
                     
-                    Section(header: Text("SELECT COFFEE").font(.body), footer: OrderTotalView(total: self.addCoffeeOrderVM.total)) {
-                        Picker("",selection: self.$addCoffeeOrderVM.size) {
+                    Section(header: Text("SELECT COFEE").font(.body), footer: Text("Total")) {
+                        Picker("", selection: self.$addCoffeeOrderVM.size) {
                             Text("Small").tag("Small")
-                                                   Text("Medium").tag("Medium")
-                                                   Text("Large").tag("Large")
+                            Text("Medium").tag("Medium")
+                            Text("Large").tag("Large")
                         }.pickerStyle(SegmentedPickerStyle())
                     }
-                    
                 }
                 
                 HStack {
-                Button("Place Order") {
-                    self.addCoffeeOrderVM.placeOrder()
-                    self.isPresented = false
-                }
-                    
+                    Button("Place Order") {
+                        
+                    }
                 }.padding(EdgeInsets(top: 12, leading: 100, bottom: 12, trailing: 100))
                     .foregroundColor(Color.white)
-                .background(Color(red: 46/255, green: 204/255, blue: 113/255))
-                .cornerRadius(10)
-                
+                    .background(Color(red: 46/255, green: 204/255, blue: 113/255))
+                    .cornerRadius(10)
             }
-            
-            .navigationBarTitle("Add Order")
+            .navigationBarTitle("Add Order",displayMode: .inline)
             
         }
     }
 }
 
-struct AddCoffeeOrderView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddCoffeeOrderView(isPresented: .constant(false))
-    }
+#Preview {
+    AddCoffeeOrderView()
 }
 
 struct CoffeeCellView: View {
-    
     let coffee: CoffeeViewModel
     @Binding var selection: String
     
@@ -79,13 +63,13 @@ struct CoffeeCellView: View {
         HStack {
             Image(coffee.imageURL)
                 .resizable()
-                .frame(width: 100, height: 100)
-                .cornerRadius(16)
+                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                .cornerRadius(5.0)
             Text(coffee.name)
                 .font(.title)
-                .padding([.leading],20)
+                .padding([.leading], 20)
             Spacer()
-            Image(systemName: self.selection == self.coffee.name ? "checkmark": "").padding()
+            Image(systemName: self.selection == self.coffee.name ? "checkmark" : "").padding()
         }.onTapGesture {
             self.selection = self.coffee.name
         }
